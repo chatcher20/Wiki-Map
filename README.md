@@ -41,3 +41,26 @@ The following steps are only for _one_ of the group members to perform.
 - Node 10.x or above
 - NPM 5.x or above
 - PG 6.x
+
+
+// Notes for getting started:
+
+User Stories:
+
+As a user, 
+I want to:
+  1. See a list of available maps
+  2. View a particular map
+
+As an authenticated user (ie sign in to a profile),
+I should be able to:
+  1. See a list of available maps
+  2. View a particular map
+  3. Create a map
+  4. Modify a map (add, edit or remove points)
+  6. Have a profile
+  7. Inside my profile, view which maps I've contributed to
+  7. Inside my profile, view which maps I have favourited
+
+
+
