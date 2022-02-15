@@ -2,7 +2,7 @@
 <html>
   <head>
     <!-- <title>Simple Map</title> -->
-    <title>Home Page</title>
+    <title>Points</title>
 
     <link rel="stylesheet" type="text/css" href="/styles/layout.css" />
     <link rel="stylesheet" type="text/css" href="/styles/main.css" />
@@ -20,34 +20,49 @@
 
   </head>
 
-  <header id="body-header">
-    <h1>Group 1</h1>
-    <h1 id="app-name">Points</h1>
-  </header>
-
   <body>
+    <header id="body-header">
+      <h1 id="app-name">Points</h1>
+    </header>
     <main>
       <section class="map-info">
         <h2 id="map-name">Map Name</h2>
-        <button id="create-btn">Create Map</button>
-        <button id="available-btn">Available Maps</button>
-        <button id="favourite-btn">Favourite Maps</button>
+        <button class="main-btn" id="create-btn">Create Map</button>
+        <button class="main-btn" id="available-btn">Available Maps</button>
+        <button class="main-btn" id="favourite-btn">Favourite Maps</button>
 
-        <ul>
-          <li>
-            <div class="list-item">
-              <h3>Created map name 1</h3>
-              <p>- Creator Name 1</p>
-            </div>
-          </li>
+        <div class="map-list">
+          <ul>
+            <li>
+              <div class="list-item">
+                <h3>Best places to eat</h3>
+                <p>Created by: Chris</p>
+              </div>
+            </li>
 
-          <li>
-            <div class="list-item">
-              <h3>Created map name 2</h3>
-              <p>- Creator Name 2</p>
-            </div>
-          </li>
-        </ul>
+            <li>
+              <div class="list-item">
+                <h3>Hangout spots around town</h3>
+                <p>Created by: Jomel</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div id="point-form" class="hide-element">
+          <form action="" method="">
+            <label for="title">Map Title</label>
+            <input type="text" name="title">
+
+            <label for="desc">Description</label>
+            <textarea name="desc" id="desc" cols="30" rows="5"></textarea>
+
+            <label for="image">Image-placeholder</label>
+            <input type="text" name="image">
+
+            <input type="submit" value="Create Point">
+          </form>
+        </div>
 
       </section>
       <div id="map"></div>

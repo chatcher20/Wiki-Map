@@ -1,0 +1,18 @@
+#point-form {
+  background-color: #ffffffaf;
+  position: absolute;
+  left: 40%;
+  z-index: 5;
+
+  form {
+    border: solid 5px $main-color;
+    border-radius: 10px;
+    display: flex;
+    padding: 2rem;
+    flex-direction: column;
+  }
+}
+
+.hide-element {
+  display: none;
+}

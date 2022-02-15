@@ -45,7 +45,9 @@ function initMap() {
     placeMarker(e.latLng, map);
     console.log(e.latLng.toJSON());
     newPlace = e.latLng;
+
     // open a form for user to submit a title, description or image
+    $("#point-form").removeClass("hide-element")
   });
 
   function placeMarker(latLng, map) {

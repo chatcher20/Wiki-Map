@@ -1,8 +1,29 @@
 body main {
+  background-color: $secondary-bgc;
   display: flex;
-  padding-left: 2em;
 
   .map-info {
+    margin-top: 5rem;
+    padding-left: 2em;
     width: 40%;
+  }
+
+  .main-btn {
+
+  }
+}
+
+// List-Items
+.map-list ul{
+  list-style: none;
+  padding: 0;
+
+  li {
+    background-color: white;
+    border: solid 5px $grey-accent;
+    border-radius: 10px;
+    margin-bottom: 2em;
+    text-align: center;
+    width: 50%;
   }
 }
