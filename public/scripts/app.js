@@ -1,4 +1,16 @@
 // Client facing scripts here
+// document.addEventListener("DOMContentLoaded", function(event) {
+//   $("#all-maps").on("click", () => {
+//     console.log("hello");
+//     $("#all-maps").removeClass("hide-element");
+//     $("#fave-list").addClass("hide-element");
+//   });
+
+//   $("#fave-list").on("click", () => {
+//     $("#fave-list").removeClass("hide-element");
+//     $("#all-maps").addClass("hide-element");
+//   });
+// });
 
 function initMap() {
 

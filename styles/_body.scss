@@ -20,10 +20,14 @@ body main {
 
   li {
     background-color: white;
-    border: solid 5px $grey-accent;
+    border: solid 5px $main-bgc;
     border-radius: 10px;
     margin-bottom: 2em;
     text-align: center;
     width: 50%;
+  }
+
+  li:hover {
+    background-color: #ef233bd8;
   }
 }
