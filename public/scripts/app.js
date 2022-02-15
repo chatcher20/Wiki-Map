@@ -1,7 +1,5 @@
 // Client facing scripts here
 
-
-
 function initMap() {
 
   // The location of Uluru
@@ -12,22 +10,10 @@ function initMap() {
   // The map, centered at vanCity
   const map = new google.maps.Map(document.getElementById("map"), {
     center: vanCity,
-    zoom: 14
+    zoom: 11
   });
 
-  map.addListener("click", (e) => {
-    placeMarker(e.latLng, map);
-  });
-
-  function placeMarker(latLng, map) {
-    new google.maps.Marker({
-      position: latLng,
-      map: map,
-    });
-    // map.panTo(latLng);
-  }
-
-  const contentString =
+  const uluruString =
   '<div id="content">' +
   '<div id="siteNotice">' +
   "</div>" +
@@ -49,18 +35,44 @@ function initMap() {
   "</div>" +
   "</div>";
 
+  let newPlace = {};
+
   const infowindow = new google.maps.InfoWindow({
-    content: contentString,
+    content: uluruString,
   });
-  const marker = new google.maps.Marker({
+
+  map.addListener("click", (e) => {
+    placeMarker(e.latLng, map);
+    console.log(e.latLng.toJSON());
+    newPlace = e.latLng;
+    // open a form for user to submit a title, description or image
+  });
+
+  function placeMarker(latLng, map) {
+    const marker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+    });
+
+    // Add the following event listener to display a title, description or image that the user entered for this location
+    marker.addListener("click", () => {
+      infowindow.open({
+        anchor: marker,
+        map,
+        shouldFocus: false
+      })
+    })
+  };
+
+  const uluruMarker = new google.maps.Marker({
     position: uluru,
     map,
     title: "Uluru (Ayers Rock)",
   });
 
-  marker.addListener("click", () => {
+  uluruMarker.addListener("click", () => {
     infowindow.open({
-      anchor: marker,
+      anchor: uluruMarker,
       map,
       shouldFocus: false,
     });
@@ -68,31 +80,51 @@ function initMap() {
 
 
 
-  const geocode = function() {
+
+
+
+
+
+
+
+
+
+
+
+  // Not sure if the code below will be necessary anymore, leave for now -Chris
+
+  /*
+  $(document).ready(() => {
 
     // For now let's hard code a location:
-    let location = "22 Main Street Boston MA";
+    let location = "Burnaby";
 
     // GET request to geocode api URL
 
 
+    const geocode = function() {
+      $.ajax({
+        method: "GET",
+        url: "https://maps.googleapis.com/maps/api/geocode/json",
+        address: location,
+        key:'AIzaSyDJRsaB7ihfFojhMQ5EdtHPxZYJQEX0C3E'
+      })
+      .then(function(response) {
+        // Log full response
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+    }
 
-  }
+    // Call geocode
+    geocode();
 
+  });
 
-
-
-
-
-
-
-
-
-
+  */
 
 
 
 };
-
-
-
