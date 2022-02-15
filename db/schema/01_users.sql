@@ -12,7 +12,7 @@ CREATE TABLE points (
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
   image BYTEA
-)
+);
 
 CREATE TABLE maps (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -21,4 +21,4 @@ CREATE TABLE maps (
   has_contributed BOOLEAN DEFAULT false,
   user_id INTEGER REFERENCES users(id),
   point_id INTEGER REFERENCES points(id)
-)
+);

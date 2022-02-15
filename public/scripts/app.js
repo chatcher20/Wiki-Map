@@ -1,12 +1,11 @@
 // Client facing scripts here
 $(document).ready(function() {
-  $("#all-maps").on("click", () => {
-    console.log("hello");
+  $("#available-btn").on("click", () => {
     $("#all-maps").removeClass("hide-element");
     $("#fave-list").addClass("hide-element");
   });
 
-  $("#fave-list").on("click", () => {
+  $("#favourite-btn").on("click", () => {
     $("#fave-list").removeClass("hide-element");
     $("#all-maps").addClass("hide-element");
   });
