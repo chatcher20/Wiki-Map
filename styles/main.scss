@@ -1,6 +1,6 @@
 // Partials
-@use 'variables';
+@import 'variables';
 
-@use 'header';
-@use 'body';
-@use 'map';
+@import 'header';
+@import 'body';
+@import 'map';

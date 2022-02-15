@@ -32,7 +32,7 @@ app.use(
 );
 
 app.use(express.static("public"));
-
+console.log("LINE 35 ===================")
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
@@ -47,8 +47,9 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-
+console.log("LINE 50 ===================")
 app.get("/", (req, res) => {
+  console.log("HERE!");
   res.render("index");
 });
 
