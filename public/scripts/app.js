@@ -59,8 +59,27 @@ function initMap() {
     newPlace = e.latLng;
 
     // open a form for user to submit a title, description or image
-    // $("#point-form").removeClass("hide-element");
-    $("#point-form").slideDown();
+    $("#point-form").removeClass("hide-element")
+
+    $("#point-form form").on('submit', function (event) {
+      // prevent default beahviour of the form (making a GET request to the current page)
+      event.preventDefault();
+      console.log("the form has submitted");
+      console.log("event = ", event);
+
+      const pinData = $("#point-form form");
+      console.log("pinData = ", pinData.serialize());   // Serialize to turn it into a urlencoded string to be sent to the server
+
+      $.ajax({
+        method: "POST",
+        url: "/api/pins",       //go to appropriate routes js file aka pins.js
+        data: pinData.serialize()
+      }).then(() => {
+        console.log("pin data created successfully");
+        // fetchPins();     Calls function fetchPins, which will peform GET request on the pins database (see Andy's notes on fetch rabbit)
+      });
+    });
+
   });
 
   function placeMarker(latLng, map) {
