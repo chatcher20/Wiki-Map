@@ -21,6 +21,18 @@ $(document).ready(function() {
     $("#fave-list").addClass("hide-element");
     $("#all-maps").addClass("hide-element");
   });
+
+
+  // Form submission
+  // const $form = $("#map-form");
+
+  // $form.submit(function(event) {
+  //   event.preventDefault();
+
+  //   console.log("APP.JS", event.target[0].value);
+  //   console.log("APP.JS", event.target[1].value);
+  // });
+
 });
 
 function initMap() {
