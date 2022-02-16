@@ -49,13 +49,7 @@ function initMap() {
 
   let newPlace = {};
 
-  const infowindow = new google.maps.InfoWindow({
-    content: uluruString,
-  });
-
-
-  const pointForm = $("#point-form")
-
+  const pointForm = $("#point-form");
 
 
 
@@ -73,7 +67,7 @@ function initMap() {
       console.log("the form has submitted");
       console.log("event = ", event);
 
-      const pinData = $("#point-form form").serialize() + `&latitude=${newPlace.lat}&longitude=${newPlace.lng}`;
+      const pinData = $("#point-form form").serialize() + `&latitude=${newPlace.lat}&longitude=${newPlace.lng}&latLng=${newPlace.latLng}`;
       console.log("pinData = ", pinData);   // Serialize to turn it into a urlencoded string to be sent to the server
 
       $.ajax({
@@ -83,15 +77,15 @@ function initMap() {
       }).then(() => {
         pointForm.addClass("hide-element");
         console.log("pin data created successfully");
-        // fetchPins();     Calls function fetchPins, which will peform GET request on the pins database (see Andy's notes on fetch rabbit)
       });
     });
 
   });
 
+
   $.ajax({
     method: "GET",
-    url: "/api/pins",       //go to appropriate routes js file aka pins.js
+    url: "/api/pins",
   }).then((res) => {
     res.pins.map((pin) => {
       placeMarker({lat: Number(pin.latitude), lng: Number(pin.longitude)}, map);
@@ -101,7 +95,9 @@ function initMap() {
   })
 
 
-
+  const infowindow = new google.maps.InfoWindow({
+    content: uluruString
+  });
 
   function placeMarker(latLng, map) {
     const marker = new google.maps.Marker({
@@ -109,13 +105,22 @@ function initMap() {
       map: map,
     });
 
+    // Define the function markerInfoToDisplay
+    // const markerInfoToDisplay = function(pins) {
+    //   for (const x = 0; x < pins.length; x = x + 1) {
+    //     if(pins[x].latLng === marker.position) {
+    //       return pins.description;
+    //     }
+    //   }
+    // };
+
     // Add the following event listener to display a title, description or image that the user entered for this location
     marker.addListener("click", () => {
       infowindow.open({
         anchor: marker,
         map,
-        shouldFocus: false
-        // content: // Get the latLng specific to this coordinate
+        shouldFocus: false,
+        // content: markerInfoToDisplay(pins)  // Instead of displaying uluruString, Get the latLng specific to this marker by looping through the objects inside the "pins" array, and finding the object with the same latLng coordinates. Then display that object's title, description and image.
       })
     })
 
