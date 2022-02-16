@@ -7,8 +7,8 @@ module.exports = function(db) {
   pinRoutes.get("/", function(req, res) {
     db.query(`SELECT * FROM pins;`)
       .then(data => {
-        const selectAllFromPins = data.rows;
-        res.json({ selectAllFromPins });
+        const pins = data.rows;
+        res.json({ pins });
       })
       .catch(err => {
         res
@@ -24,12 +24,12 @@ module.exports = function(db) {
     const { title, desc, image } = req.body;
 
     db.query(`
-    INSERT INTO pins (title, description, image)
-    VALUES ($1, $2, $3)
-    RETURNING *;`, [req.body.title, req.body.desc, req.body.image])
+    INSERT INTO pins (title, description, image, latitude, longitude, latLng)
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *;`, [req.body.title, req.body.desc, req.body.image, req.body.latitude, req.body.longitude, req.body.latLng])
     .then(data => {
-      const selectAllFromPins = data.rows;
-      res.json({ selectAllFromPins });
+      const pin = data.rows[0];
+      res.json({ pin });
     })
     .catch(err => {
       console.log("error", err);

@@ -1,3 +1,4 @@
+
 // Client facing scripts here
 $(document).ready(function() {
   // Shows All available maps
@@ -59,14 +60,14 @@ function initMap() {
 
   let newPlace = {};
 
-  const infowindow = new google.maps.InfoWindow({
-    content: uluruString,
-  });
+  const pointForm = $("#point-form");
+
+
 
   map.addListener("click", (e) => {
     placeMarker(e.latLng, map);
     console.log(e.latLng.toJSON());
-    newPlace = e.latLng;
+    newPlace = e.latLng.toJSON();
 
     // open a form for user to submit a title, description or image
     $("#point-form").slideDown();
@@ -77,19 +78,36 @@ function initMap() {
       console.log("the form has submitted");
       console.log("event = ", event);
 
-      const pinData = $("#point-form form");
-      console.log("pinData = ", pinData.serialize());   // Serialize to turn it into a urlencoded string to be sent to the server
+      const pinData = $("#point-form form").serialize() + `&latitude=${newPlace.lat}&longitude=${newPlace.lng}&latLng=${newPlace.latLng}`;
+      console.log("pinData = ", pinData);   // Serialize to turn it into a urlencoded string to be sent to the server
 
       $.ajax({
         method: "POST",
         url: "/api/pins",       //go to appropriate routes js file aka pins.js
-        data: pinData.serialize()
+        data: pinData
       }).then(() => {
+        pointForm.addClass("hide-element");
         console.log("pin data created successfully");
-        // fetchPins();     Calls function fetchPins, which will peform GET request on the pins database (see Andy's notes on fetch rabbit)
       });
     });
 
+  });
+
+
+  $.ajax({
+    method: "GET",
+    url: "/api/pins",
+  }).then((res) => {
+    res.pins.map((pin) => {
+      placeMarker({lat: Number(pin.latitude), lng: Number(pin.longitude)}, map);
+
+    });
+    console.log(res);
+  })
+
+
+  const infowindow = new google.maps.InfoWindow({
+    content: uluruString
   });
 
   function placeMarker(latLng, map) {
@@ -98,14 +116,31 @@ function initMap() {
       map: map,
     });
 
+    // Define the function markerInfoToDisplay
+    // const markerInfoToDisplay = function(pins) {
+    //   for (const x = 0; x < pins.length; x = x + 1) {
+    //     if(pins[x].latLng === marker.position) {
+    //       return pins.description;
+    //     }
+    //   }
+    // };
+
     // Add the following event listener to display a title, description or image that the user entered for this location
     marker.addListener("click", () => {
       infowindow.open({
         anchor: marker,
         map,
-        shouldFocus: false
+        shouldFocus: false,
+        // content: markerInfoToDisplay(pins)  // Instead of displaying uluruString, Get the latLng specific to this marker by looping through the objects inside the "pins" array, and finding the object with the same latLng coordinates. Then display that object's title, description and image.
       })
     })
+
+    // Right-click on a marker to delete it.
+    marker.addListener("rightclick", () => {
+      marker.setVisible(false);
+      infowindow.close();
+    })
+
   };
 
   const uluruMarker = new google.maps.Marker({
