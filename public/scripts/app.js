@@ -1,4 +1,3 @@
-
 // Client facing scripts here
 $(document).ready(function() {
   // Shows All available maps
@@ -20,8 +19,10 @@ $(document).ready(function() {
     $("#create-form").removeClass("hide-element");
     $("#fave-list").addClass("hide-element");
     $("#all-maps").addClass("hide-element");
+    // Add post route here so that when "Create new map" is clicked a post route sends that data to a map database (url: "/api/maps",       //go to appropriate routes js file aka maps.js
   });
 
+<<<<<<< HEAD
 
   // Form submission
   // const $form = $("#map-form");
@@ -33,7 +34,12 @@ $(document).ready(function() {
   //   console.log("APP.JS", event.target[1].value);
   // });
 
+=======
+>>>>>>> 7352fa7c4e959639864967f1f46fb1ba4bd09940
 });
+
+
+
 
 function initMap() {
 
@@ -48,32 +54,10 @@ function initMap() {
     zoom: 11
   });
 
-  const uluruString =
-  '<div id="content">' +
-  '<div id="siteNotice">' +
-  "</div>" +
-  '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-  '<div id="bodyContent">' +
-  "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
-  "sandstone rock formation in the southern part of the " +
-  "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
-  "south west of the nearest large town, Alice Springs; 450&#160;km " +
-  "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
-  "features of the Uluru - Kata Tjuta National Park. Uluru is " +
-  "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
-  "Aboriginal people of the area. It has many springs, waterholes, " +
-  "rock caves and ancient paintings. Uluru is listed as a World " +
-  "Heritage Site.</p>" +
-  '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-  "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
-  "(last visited June 22, 2009).</p>" +
-  "</div>" +
-  "</div>";
 
   let newPlace = {};
 
   const pointForm = $("#point-form");
-
 
 
   map.addListener("click", (e) => {
@@ -111,31 +95,18 @@ function initMap() {
     url: "/api/pins",
   }).then((res) => {
     res.pins.map((pin) => {
-      placeMarker({lat: Number(pin.latitude), lng: Number(pin.longitude)}, map);
-
+      placeMarker({lat: Number(pin.latitude), lng: Number(pin.longitude), title: pin.title, description: pin.description, image: pin.image}, map);
     });
-    console.log(res);
+    console.log("pins is...  ", res);
   })
 
 
-  const infowindow = new google.maps.InfoWindow({
-    content: uluruString
-  });
-
   function placeMarker(latLng, map) {
+
     const marker = new google.maps.Marker({
       position: latLng,
       map: map,
     });
-
-    // Define the function markerInfoToDisplay
-    // const markerInfoToDisplay = function(pins) {
-    //   for (const x = 0; x < pins.length; x = x + 1) {
-    //     if(pins[x].latLng === marker.position) {
-    //       return pins.description;
-    //     }
-    //   }
-    // };
 
     // Add the following event listener to display a title, description or image that the user entered for this location
     marker.addListener("click", () => {
@@ -143,7 +114,6 @@ function initMap() {
         anchor: marker,
         map,
         shouldFocus: false,
-        // content: markerInfoToDisplay(pins)  // Instead of displaying uluruString, Get the latLng specific to this marker by looping through the objects inside the "pins" array, and finding the object with the same latLng coordinates. Then display that object's title, description and image.
       })
     })
 
@@ -153,7 +123,53 @@ function initMap() {
       infowindow.close();
     })
 
+    let infowindow = new google.maps.InfoWindow({
+      content: `<h1 id="firstHeading" class="firstHeading">${latLng.title}</h1>` +
+      '<div id="bodyContent">' + `<p><b>Description: </b>${latLng.description}</p>` +
+       `<p><b>Image: </b>${latLng.image}</p>` + '<p><a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+       "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
+      '</div>'
+    });
+
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Uluru/Ayer's Rock example:
+
+  const uluruString =
+  '<div id="content">' +
+  '<div id="siteNotice">' +
+  "</div>" +
+  '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+  '<div id="bodyContent">' +
+  "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
+  "sandstone rock formation in the southern part of the " +
+  "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
+  "south west of the nearest large town, Alice Springs; 450&#160;km " +
+  "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
+  "features of the Uluru - Kata Tjuta National Park. Uluru is " +
+  "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
+  "Aboriginal people of the area. It has many springs, waterholes, " +
+  "rock caves and ancient paintings. Uluru is listed as a World " +
+  "Heritage Site.</p>" +
+  '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+  "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
+  "(last visited June 22, 2009).</p>" +
+  "</div>" +
+  "</div>";
 
   const uluruMarker = new google.maps.Marker({
     position: uluru,
@@ -161,17 +177,17 @@ function initMap() {
     title: "Uluru (Ayers Rock)",
   });
 
+  let uluruWindow = new google.maps.InfoWindow({
+    content: uluruString
+  });
+
   uluruMarker.addListener("click", () => {
-    infowindow.open({
+    uluruWindow.open({
       anchor: uluruMarker,
       map,
       shouldFocus: false,
     });
   });
-
-
-
-
 
 
 
@@ -215,6 +231,13 @@ function initMap() {
   });
 
   */
+
+
+
+
+
+
+
 
 
 
