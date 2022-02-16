@@ -19,23 +19,20 @@ $(document).ready(function() {
     $("#create-form").removeClass("hide-element");
     $("#fave-list").addClass("hide-element");
     $("#all-maps").addClass("hide-element");
-    // Add post route here so that when "Create new map" is clicked a post route sends that data to a map database (url: "/api/maps",       //go to appropriate routes js file aka maps.js
   });
 
-<<<<<<< HEAD
+  // Add post route here so that when "Create new map" is clicked a post route sends that data to a map database (url: "/api/maps"
+  //go to appropriate routes js file aka maps.js
+  $("#map-form").on("submit", function(event) {
+    const mapData = $("#map-form form").serialize();
 
-  // Form submission
-  // const $form = $("#map-form");
+      $.ajax({
+        method: "POST",
+        url: "/api/maps",
+        data: mapData
+      })
+  })
 
-  // $form.submit(function(event) {
-  //   event.preventDefault();
-
-  //   console.log("APP.JS", event.target[0].value);
-  //   console.log("APP.JS", event.target[1].value);
-  // });
-
-=======
->>>>>>> 7352fa7c4e959639864967f1f46fb1ba4bd09940
 });
 
 

@@ -17,10 +17,38 @@ module.exports = function(db) {
       });
   });
 
-  mapRoutes.post("/maps", function(req, res) {
-    console.log(req.body);
+
+  mapRoutes.post("/api/maps", function(req, res) {
+    console.log("Map route req.body", req.body);
+
+    const { map_name } = req.body;
+
+    db.query(`
+    INSERT INTO maps (map_name)
+    VALUES (${req.body.map_name})
+    `)
+    .then(data => {
+      const map = data.rows[0];
+      res.json({ map });
+    })
+    .catch(err => {
+      console.log("error", err);
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
 
   });
+
+  // Form submission
+  // const $form = $("#map-form");
+
+  // $form.submit(function(event) {
+  //   event.preventDefault();
+
+  //   console.log("APP.JS", event.target[0].value);
+  //   console.log("APP.JS", event.target[1].value);
+  // });
 
   return mapRoutes;
 };
