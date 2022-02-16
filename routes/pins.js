@@ -24,9 +24,9 @@ module.exports = function(db) {
     const { title, desc, image } = req.body;
 
     db.query(`
-    INSERT INTO pins (title, description, image, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *;`, [req.body.title, req.body.desc, req.body.image, req.body.latitude, req.body.longitude])
+    INSERT INTO pins (title, description, image, latitude, longitude, latLng)
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *;`, [req.body.title, req.body.desc, req.body.image, req.body.latitude, req.body.longitude, req.body.latLng])
     .then(data => {
       const pin = data.rows[0];
       res.json({ pin });
