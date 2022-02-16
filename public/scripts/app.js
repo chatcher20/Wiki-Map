@@ -1,12 +1,23 @@
 // Client facing scripts here
 $(document).ready(function() {
+  // Shows All available maps
   $("#available-btn").on("click", () => {
     $("#all-maps").removeClass("hide-element");
     $("#fave-list").addClass("hide-element");
+    $("#create-form").addClass("hide-element");
   });
 
+  // Shows only favourite maps
   $("#favourite-btn").on("click", () => {
     $("#fave-list").removeClass("hide-element");
+    $("#all-maps").addClass("hide-element");
+    $("#create-form").addClass("hide-element");
+  });
+
+  // Shows create map form
+  $("#create-btn").on("click", () => {
+    $("#create-form").removeClass("hide-element");
+    $("#fave-list").addClass("hide-element");
     $("#all-maps").addClass("hide-element");
   });
 });
@@ -58,7 +69,7 @@ function initMap() {
     newPlace = e.latLng;
 
     // open a form for user to submit a title, description or image
-    $("#point-form").removeClass("hide-element")
+    $("#point-form").slideDown();
 
     $("#point-form form").on('submit', function (event) {
       // prevent default beahviour of the form (making a GET request to the current page)

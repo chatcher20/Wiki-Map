@@ -21,6 +21,10 @@
   <body>
     <header id="body-header">
       <h1 id="app-name">Points</h1>
+      <div>
+        <p>Welcome back</p>
+        <p id="username-welcome"><strong>Username!</strong></p>
+      </div>
     </header>
     <main>
       <section class="map-info">
@@ -29,7 +33,19 @@
         <button class="main-btn" id="available-btn">Available Maps</button>
         <button class="main-btn" id="favourite-btn">Favourite Maps</button>
 
-        <div class="map-list" id="all-maps">
+        <div id="create-form">
+          <form action="" method="post">
+            <label for="map-title">Map Title</label>
+            <input type="text" name="map-title">
+
+            <label for="description">Short description</label>
+            <input type="text" name="description">
+
+            <input type="submit" value="Create new map">
+          </form>
+        </div>
+
+        <div class="map-list hide-element" id="all-maps">
           <ul>
             <li>
               <div class="list-item">
@@ -74,7 +90,7 @@
 
         <div id="point-form" class="hide-element">
           <form action="" method="">
-            <label for="title">Map Title</label>
+            <label for="title">Point Title</label>
             <input type="text" name="title">
 
             <label for="desc">Description</label>
@@ -98,26 +114,3 @@
     ></script>
   </body>
 </html>
-
-
-
-
-
-<!--
-  From views>index.ejs:
-
-<head>
-  <title>Home Page</title>
-
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-</head>
-
-<body>
-  <h1>Have fun! 🥔</h1>
-</body> -->
