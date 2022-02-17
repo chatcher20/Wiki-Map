@@ -8,6 +8,14 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 
+//////users cookies
+const cookieSession = require('cookie-session');
+app.use(cookieSession({
+  name: "session",
+  keys: ["key1", "key2", "key3", "key4"]
+}));
+///////////////////////////
+
 // PG database client/connection setup
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
@@ -54,8 +62,28 @@ app.use("/api/maps", mapRoutes(db));
 
 app.get("/", (req, res) => {
   console.log("HERE!");
-  res.render("index");
+
+  db.query(`SELECT * FROM users WHERE id = $1;`, [req.session.userID])
+      .then(data => {
+        const users = data.rows;
+        console.log(users);
+        //res.json({ users });
+        return res.render("index", {userID: req.session.userID,
+        name: users[0].first_name});
+
+      })
+      .catch(err => {
+        // res
+        //   .status(500)
+          //.json({ error: err.message });
+      });
 });
+
+app.get("/login/:id", (req,res) => {
+  req.session.userID = req.params.id;
+  return res.redirect("/");
+
+  })
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

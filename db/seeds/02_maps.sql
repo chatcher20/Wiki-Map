@@ -1,0 +1,1 @@
+-- INSERT INTO maps (name) VALUES ('type');

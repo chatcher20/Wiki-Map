@@ -7,6 +7,16 @@
 
 const express = require('express');
 const router  = express.Router();
+const cookieSession = require('cookie-session');
+const app = express();
+
+
+app.use(cookieSession({
+  name: "session",
+  keys: ["key1", "key2", "key3", "key4"]
+}));
+
+app.set("view engine", "ejs");
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -21,5 +31,8 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+
+  
   return router;
 };
