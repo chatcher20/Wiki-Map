@@ -1,6 +1,7 @@
 body main {
   background-color: $secondary-bgc;
   display: flex;
+  font-family: $body-font;
 
   .map-info {
     margin-top: 5rem;
