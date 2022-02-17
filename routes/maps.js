@@ -17,16 +17,16 @@ module.exports = function(db) {
       });
   });
 
+  mapRoutes.post("/", function(req, res) {     // mapRoutes.post("/api/maps"
 
-  mapRoutes.post("/api/maps", function(req, res) {
     console.log("Map route req.body", req.body);
 
     const { map_name } = req.body;
 
     db.query(`
     INSERT INTO maps (map_name)
-    VALUES (${req.body.map_name})
-    `)
+    VALUES ($1)
+    RETURNING *;`, [req.body.map_name])
     .then(data => {
       const map = data.rows[0];
       res.json({ map });
@@ -51,4 +51,5 @@ module.exports = function(db) {
   // });
 
   return mapRoutes;
+
 };
