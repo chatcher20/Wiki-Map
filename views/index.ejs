@@ -10,6 +10,9 @@
     <link rel="stylesheet" type="text/css" href="/styles/main.scss" /> -->
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Ultra&display=swap" rel="stylesheet">
 
     <!-- App JS -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -28,18 +31,21 @@
     </header>
     <main>
       <section class="map-info">
-        <h2 id="map-name">Map Name</h2>
+        <h2 id="map-name-header">Map Name</h2>
         <button class="main-btn" id="create-btn">Create Map</button>
         <button class="main-btn" id="available-btn">Available Maps</button>
         <button class="main-btn" id="favourite-btn">Favourite Maps</button>
 
         <div id="create-form">
           <form action="/api/maps" method="POST" id="map-form">
-            <label for="map-title">Map Title</label>
-            <input type="text" name="map-title">
+            <label for="map-title">Title</label>
+            <input type="text" name="map_name">
+            <label for="map-title" class="label-under">Type a map title</label>
 
-            <label for="description">Short description</label>
+            <label for="description">Description</label>
             <input type="text" name="description">
+            <label for="description"
+            class="label-under">Type a short description</label>
 
             <input type="submit" value="Create new map">
           </form>

@@ -24,18 +24,27 @@ $(document).ready(function() {
   // Add post route here so that when "Create new map" is clicked a post route sends that data to a map database (url: "/api/maps"
   //go to appropriate routes js file aka maps.js
   $("#map-form").on("submit", function(event) {
-    const mapData = $("#map-form form").serialize();
+
+    console.log("hello 123");
+
+    // prevent default beahviour of the form (making a GET request to the current page)
+    event.preventDefault();
+    console.log("the form has submitted");
+    console.log("event = ", event);
+
+    const mapData = $("#map-form").serialize();
 
       $.ajax({
         method: "POST",
         url: "/api/maps",
         data: mapData
+      }).then(() => {
+        console.log("map data created successfully");
       })
+
   })
 
 });
-
-
 
 
 function initMap() {
