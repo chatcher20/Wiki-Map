@@ -19,9 +19,9 @@ module.exports = function(db) {
 
   pinRoutes.post("/", function(req, res) {
     /// add a pin with its associated title, description and image to the "pins" database
-    console.log(req.body);
+    console.log("The backend req.body for pinDAta is: ", req.body);
 
-    const { title, desc, image } = req.body;
+    // const { title, desc, image } = req.body;
 
     db.query(`
     INSERT INTO pins (title, description, image, latitude, longitude, latLng)

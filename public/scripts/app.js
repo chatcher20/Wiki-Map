@@ -25,7 +25,7 @@ $(document).ready(function() {
   //go to appropriate routes js file aka maps.js
   $("#map-form").on("submit", function(event) {
 
-    console.log("hello 123");
+    console.log("clicked on map-form");
 
     // prevent default beahviour of the form (making a GET request to the current page)
     event.preventDefault();
@@ -49,17 +49,15 @@ $(document).ready(function() {
 
 function initMap() {
 
-  // The location of Uluru
+  // The location of Uluru, Australia
   const uluru = { lat: -25.344, lng: 131.036 };
 
   const vanCity = { lat: 49.28741410202669, lng: -123.10724415091286 };
 
-  // The map, centered at vanCity
   const map = new google.maps.Map(document.getElementById("map"), {
     center: vanCity,
     zoom: 11
   });
-
 
   let newPlace = {};
 
@@ -70,6 +68,7 @@ function initMap() {
     placeMarker(e.latLng, map);
     console.log(e.latLng.toJSON());
     newPlace = e.latLng.toJSON();
+    newPlaceNotJSON = e.latLng;
 
     // open a form for user to submit a title, description or image
     $("#point-form").slideDown();
@@ -80,7 +79,7 @@ function initMap() {
       console.log("the form has submitted");
       console.log("event = ", event);
 
-      const pinData = $("#point-form form").serialize() + `&latitude=${newPlace.lat}&longitude=${newPlace.lng}&latLng=${newPlace.latLng}`;
+      const pinData = $("#point-form form").serialize() + `&latitude=${newPlace.lat}&longitude=${newPlace.lng}&latLng=${newPlaceNotJSON}`;
       console.log("pinData = ", pinData);   // Serialize to turn it into a urlencoded string to be sent to the server
 
       $.ajax({
@@ -88,11 +87,11 @@ function initMap() {
         url: "/api/pins",       //go to appropriate routes js file aka pins.js
         data: pinData
       }).then(() => {
-        pointForm.addClass("hide-element");
+        pointForm.css({"display":"none"});   // pointForm.addClass("hide-element") this was not removing form window
         console.log("pin data created successfully");
+        location.reload();     // reloads the page so that when you click on the pin you just created, the information shows up.
       });
     });
-
   });
 
 
@@ -132,8 +131,7 @@ function initMap() {
     let infowindow = new google.maps.InfoWindow({
       content: `<h1 id="firstHeading" class="firstHeading">${latLng.title}</h1>` +
       '<div id="bodyContent">' + `<p><b>Description: </b>${latLng.description}</p>` +
-       `<p><b>Image: </b>${latLng.image}</p>` + '<p><a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-       "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
+       `<p><b>Image: </b><a target="_blank" href="${latLng.image}">Click Here to view image</a></p>` +
       '</div>'
     });
 
