@@ -21,6 +21,52 @@ $(document).ready(function() {
     $("#all-maps").addClass("hide-element");
   });
 
+  // Creating map list for db
+  const createMapListItem = (item) => {
+    let listItem = `
+    <li>
+      <div class="list-item">
+        <h3>${item.map_name}</h3>
+        <p>Created by: ${item.user_id}</p>
+        <p>Favourite <input type="checkbox" name="add-fave-map" id="add-fave-map"></p>
+      </div>
+    </li>`;
+
+    return listItem;
+  };
+
+  // Render the list item
+  const showListItem = function(items) {
+    const mapList = $(".all-maps-list");
+    const arr = items.maps;
+    for (const key in arr) {
+      mapList.prepend(createMapListItem(arr[key]));
+    };
+
+    return mapList;
+  };
+
+  // Fetch maps from db
+  const loadMaps = function () {
+    $.ajax({
+      method: "GET",
+      url: "/api/maps",
+    }).then(function (item) {
+      showListItem(item);
+    });
+  };
+
+  // Fetch users from db
+  const loadUsers = function () {
+    const user =
+    $.ajax({
+      method: "GET",
+      url: "/api/users",
+    });
+    console.log(user);
+  };
+  loadUsers();
+
   // Add post route here so that when "Create new map" is clicked a post route sends that data to a map database (url: "/api/maps"
   //go to appropriate routes js file aka maps.js
   $("#map-form").on("submit", function(event) {
@@ -50,8 +96,9 @@ $(document).ready(function() {
           zoom: 11
         });
 
-  })
+  });
 
+  loadMaps();
 });
 
 
