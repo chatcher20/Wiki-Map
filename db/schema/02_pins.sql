@@ -5,16 +5,15 @@ CREATE TABLE pins (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
-  image VARCHAR(255) NOT NULL,
-  latitude VARCHAR(50),
-  longitude VARCHAR(50)
+  image VARCHAR(2000),
+  latitude VARCHAR(255),
+  longitude VARCHAR(255),
+  latLng VARCHAR(255),
+  mapID VARCHAR(50)
 );
 
 
 
--- CREATE TABLE points (
---   id SERIAL PRIMARY KEY NOT NULL,
---   title VARCHAR(255) NOT NULL,
---   description TEXT NOT NULL,
---   image BYTEA
--- );
+
+
+
