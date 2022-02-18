@@ -62,6 +62,7 @@ app.use("/api/maps", mapRoutes(db));
 
 app.get("/", (req, res) => {
   console.log("HERE!");
+  console.log("the req.session.userID is... ", req.session.userID);
 
   db.query(`SELECT * FROM users WHERE id = $1;`, [req.session.userID])
       .then(data => {
@@ -73,9 +74,9 @@ app.get("/", (req, res) => {
 
       })
       .catch(err => {
-        // res
-        //   .status(500)
-          //.json({ error: err.message });
+        res
+          .status(500)
+          .json({ error: err.message });
       });
 });
 
