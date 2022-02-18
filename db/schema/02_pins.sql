@@ -8,7 +8,8 @@ CREATE TABLE pins (
   image VARCHAR(2000),
   latitude VARCHAR(255),
   longitude VARCHAR(255),
-  latLng VARCHAR(255)
+  latLng VARCHAR(255),
+  mapID VARCHAR(50)
 );
 
 

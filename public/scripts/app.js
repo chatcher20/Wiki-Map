@@ -33,6 +33,7 @@ $(document).ready(function() {
     console.log("event = ", event);
 
     const mapData = $("#map-form").serialize();
+    console.log("mapDataL ", mapData);
 
       $.ajax({
         method: "POST",
@@ -41,6 +42,13 @@ $(document).ready(function() {
       }).then(() => {
         console.log("map data created successfully");
       })
+      // Added lines 46-51 below. This causes the map to be saved into maps database and wipes page clean (fresh map).
+      $('#map').empty();
+        const vanCity = { lat: 49.28741410202669, lng: -123.10724415091286 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+          center: vanCity,
+          zoom: 11
+        });
 
   })
 
