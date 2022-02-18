@@ -71,8 +71,16 @@ $(document).ready(function() {
       </div>
     </li>`;
 
+    // Remove map from fave list
+   $(".remove-fave-btn").on("click", () => {
+      this.is_favourite = false;
+      console.log("BUTTON CLICKED!");
+    });
+
+    console.log(faveItem);
     return listItem;
   };
+
 
   // Render the list item
   const showListItem = function(items) {
