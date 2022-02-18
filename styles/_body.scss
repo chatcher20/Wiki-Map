@@ -21,8 +21,7 @@ body main {
 
   li {
     background-color: white;
-    border: solid 5px $main-bgc;
-    border-radius: 10px;
+    border: solid 2px $red-accent;
     margin-bottom: 2em;
     text-align: center;
     width: 50%;
@@ -30,5 +29,7 @@ body main {
 
   li:hover {
     background-color: #ef233bd8;
+    border-radius: 5px;
+    color: white;
   }
 }
