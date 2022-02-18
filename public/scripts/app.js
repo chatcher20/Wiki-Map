@@ -112,8 +112,6 @@ $(document).ready(function() {
   //go to appropriate routes js file aka maps.js
   $("#map-form").on("submit", function(event) {
 
-    console.log("clicked on map-form");
-
     // prevent default beahviour of the form (making a GET request to the current page)
     event.preventDefault();
     console.log("the form has submitted");
@@ -136,7 +134,9 @@ $(document).ready(function() {
           center: vanCity,
           zoom: 11
         });
-
+        $(".all-maps-list").empty();
+        $(".fave-maps-list").empty();
+        loadMaps();
   });
 
   loadMaps();
