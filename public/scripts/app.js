@@ -21,14 +21,53 @@ $(document).ready(function() {
     $("#all-maps").addClass("hide-element");
   });
 
-  // Creating map list for db
+  // Creating map list from db
+  let usersNames = [];
+    $.ajax({
+      method: "GET",
+      url: "/api/users",
+      success:function(u) {
+      const arr = u.users;
+      for (const key in arr) {
+        usersNames.push( [arr[key].first_name, arr[key].id] );
+      };
+    }
+  });
+
   const createMapListItem = (item) => {
+    let creator;
+    for (const name of usersNames) {
+      if (item.user_id === name[1]) {
+        creator = name[0];
+      }
+    };
+
     let listItem = `
     <li>
       <div class="list-item">
         <h3>${item.map_name}</h3>
-        <p>Created by: ${item.user_id}</p>
+        <p>Created by: ${creator}</p>
         <p>Favourite <input type="checkbox" name="add-fave-map" id="add-fave-map"></p>
+      </div>
+    </li>`;
+
+    return listItem;
+  };
+
+  const createFaveList = (faveItem) => {
+    let creator;
+    for (const name of usersNames) {
+      if (faveItem.user_id === name[1]) {
+        creator = name[0];
+      }
+    };
+
+    let listItem = `
+    <li>
+      <div class="list-item">
+        <h3>${faveItem.map_name}</h3>
+        <p>Created by: ${creator}</p>
+        <button class="remove-fave-btn">Remove</button>
       </div>
     </li>`;
 
@@ -46,6 +85,18 @@ $(document).ready(function() {
     return mapList;
   };
 
+  const faveListItem = function(items) {
+    const mapList = $(".fave-maps-list");
+    const arr = items.maps;
+    for (const key in arr) {
+      if (arr[key].is_favourite === true) {
+        mapList.prepend(createFaveList(arr[key]));
+      };
+    };
+
+    return mapList;
+  };
+
   // Fetch maps from db
   const loadMaps = function () {
     $.ajax({
@@ -53,19 +104,9 @@ $(document).ready(function() {
       url: "/api/maps",
     }).then(function (item) {
       showListItem(item);
+      faveListItem(item);
     });
   };
-
-  // Fetch users from db
-  const loadUsers = function () {
-    const user =
-    $.ajax({
-      method: "GET",
-      url: "/api/users",
-    });
-    console.log(user);
-  };
-  loadUsers();
 
   // Add post route here so that when "Create new map" is clicked a post route sends that data to a map database (url: "/api/maps"
   //go to appropriate routes js file aka maps.js

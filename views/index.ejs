@@ -26,7 +26,7 @@
       <h1 id="app-name">POINTS<img src="images/logo-2x.png" alt=""></h1>
       <div>
         <p>Welcome back</p>
-        <p id="username-welcome"><strong><%=userID%><%=name%></strong></p>
+        <p id="username-welcome"><strong><%=name%></strong></p>
       </div>
     </header>
     <main>
@@ -52,51 +52,11 @@
         </div>
 
         <div class="map-list hide-element" id="all-maps">
-          <ul class="all-maps-list">
-            <!-- <li>
-              <div class="list-item">
-                <h3>Best places to eat</h3>
-                <p>Created by: Chris</p>
-                <p>Favourite <input type="checkbox" name="add-fave-map" id="add-fave-map"></p>
-              </div>
-            </li>
-
-            <li>
-              <div class="list-item">
-                <h3>Hangout spots around town</h3>
-                <p>Created by: Jomel</p>
-                <p>Favourite <input type="checkbox" name="add-fave-map" id="add-fave-map"></p>
-              </div>
-            </li> -->
-          </ul>
+          <ul class="all-maps-list"></ul>
         </div>
 
         <div class="map-list hide-element" id="fave-list">
-          <ul>
-            <li>
-              <div class="list-item">
-                <h3>Best places to eat</h3>
-                <p>Created by: Chris</p>
-                <button class="remove-fave-btn">Remove</button>
-              </div>
-            </li>
-
-            <li>
-              <div class="list-item">
-                <h3>Hangout spots around town</h3>
-                <p>Created by: Jomel</p>
-                <button class="remove-fave-btn">Remove</button>
-              </div>
-            </li>
-
-            <li>
-              <div class="list-item">
-                <h3>Avoid these spots!</h3>
-                <p>Created by: Akbar</p>
-                <button class="remove-fave-btn">Remove</button>
-              </div>
-            </li>
-          </ul>
+          <ul class="fave-maps-list"></ul>
         </div>
 
         <div id="point-form" class="hide-element">
